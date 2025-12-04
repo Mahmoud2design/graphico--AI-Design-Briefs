@@ -1,13 +1,7 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { BriefData, DesignCategory, Difficulty, Feedback } from "../types";
 
-const apiKey = process.env.API_KEY;
-
-if (!apiKey) {
-  console.error("API_KEY is missing from environment variables.");
-}
-
-const ai = new GoogleGenAI({ apiKey: apiKey || 'dummy-key-for-build' });
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 // 1. Brief Generation Schema
 const briefSchema: Schema = {
