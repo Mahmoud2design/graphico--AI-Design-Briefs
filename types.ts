@@ -1,3 +1,4 @@
+
 export interface BriefData {
   id: string; // Unique ID for tracking
   projectName: string;
@@ -15,6 +16,15 @@ export interface BriefData {
   contactDetails: string[]; 
   visualReferences: string[];
   providedAssetDescription: string; // Description for the AI image to be used in design
+  // Detailed Content Fields
+  contentSummary: string; // What is actually happening in the video/ad?
+  clientType: ClientType; // To track if it's local or foreign
+  referenceImage?: string; // For Style Remix mode (Base64)
+}
+
+export enum ClientType {
+  Local = 'محلي (العرب)',
+  Foreign = 'دولي (Global)'
 }
 
 export enum DesignCategory {
@@ -26,7 +36,10 @@ export enum DesignCategory {
   Illustration = 'رسم رقمي',
   Advertising = 'حملة إعلانية',
   YouTube = 'صورة مصغرة يوتيوب',
-  Education = 'دعاية تعليمية/مدرسين'
+  Education = 'دعاية تعليمية/مدرسين',
+  Football = 'تصاميم كرة قدم',
+  Collage = 'فن الكولاج',
+  Remix = 'محاكاة ستايل (Remix)'
 }
 
 export enum Difficulty {
@@ -66,6 +79,26 @@ export const YOUTUBE_INDUSTRIES = [
   "بودكاست ومقابلات",
   "تحليل رياضي وكروي",
   "محتوى تعليمي وتثقيفي"
+];
+
+export const FOOTBALL_INDUSTRIES = [
+  "يوم المباراة (Match Day)",
+  "بوستر لاعب (Player Poster)",
+  "تشكيل الفريق (Lineup)",
+  "أخبار الانتقالات (Transfer Market)",
+  "إحصائيات وتحليل",
+  "خلفيات موبايل (Wallpapers)",
+  "بطولة/دوري (Tournament Branding)"
+];
+
+export const COLLAGE_INDUSTRIES = [
+  "اقتباسات تحفيزية (Motivational)",
+  "أحاديث نبوية وآيات",
+  "شعر وأدب",
+  "تاريخ وحروب",
+  "سريالي (Surreal Art)",
+  "مجلة قديمة (Vintage Style)",
+  "بوسترات أفلام فنية"
 ];
 
 export interface Project {

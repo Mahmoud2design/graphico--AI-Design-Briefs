@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { DesignCategory } from '../types';
 import { 
@@ -9,7 +10,10 @@ import {
   MonitorPlay,
   Palette,
   Youtube,
-  GraduationCap
+  GraduationCap,
+  Trophy,
+  Scissors,
+  Wand2
 } from 'lucide-react';
 
 interface CategorySelectorProps {
@@ -19,8 +23,11 @@ interface CategorySelectorProps {
 
 const CategorySelector: React.FC<CategorySelectorProps> = ({ onSelect, isLoading }) => {
   const categories = [
+    { id: DesignCategory.Remix, icon: <Wand2 className="w-8 h-8 text-white" />, label: "محاكاة ستايل / ريمكس", special: true },
     { id: DesignCategory.SocialMedia, icon: <Instagram className="w-7 h-7" />, label: "سوشيال ميديا" },
     { id: DesignCategory.YouTube, icon: <Youtube className="w-7 h-7" />, label: "يوتيوب Thumbnail" },
+    { id: DesignCategory.Football, icon: <Trophy className="w-7 h-7" />, label: "كرة قدم ورياضة" },
+    { id: DesignCategory.Collage, icon: <Scissors className="w-7 h-7" />, label: "فن الكولاج" },
     { id: DesignCategory.Education, icon: <GraduationCap className="w-7 h-7" />, label: "دعاية تعليمية" },
     { id: DesignCategory.Advertising, icon: <MonitorPlay className="w-7 h-7" />, label: "إعلانات تجارية" },
     { id: DesignCategory.Logo, icon: <PenTool className="w-7 h-7" />, label: "تصميم شعار" },
@@ -39,23 +46,35 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({ onSelect, isLoading
           disabled={isLoading}
           className={`
             relative overflow-hidden
-            flex flex-col items-center justify-center p-6 rounded-2xl border border-brand-800/50
-            bg-dark-900/40 backdrop-blur-md
-            hover:border-brand-500 hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+            flex flex-col items-center justify-center p-6 rounded-2xl border 
+            ${(cat as any).special 
+              ? 'bg-gradient-to-br from-brand-600 to-accent-600 border-white/20 shadow-lg shadow-brand-500/30' 
+              : 'bg-dark-900/40 backdrop-blur-md border-brand-800/50 hover:border-brand-500'}
+            
+            hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
             active:scale-95
             transition-all duration-300 group
             ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+            ${(cat as any).special ? 'col-span-2 md:col-span-2 lg:col-span-2' : ''}
           `}
         >
           {/* Gradient Background Effect on Hover */}
           <div className="absolute inset-0 bg-gradient-to-br from-brand-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           
-          <div className="relative mb-4 p-3 rounded-full bg-brand-900/50 text-brand-400 group-hover:bg-brand-600 group-hover:text-white transition-all duration-300 ring-1 ring-brand-700/50">
+          <div className={`relative mb-4 p-3 rounded-full transition-all duration-300 ring-1 
+            ${(cat as any).special 
+              ? 'bg-white/20 text-white ring-white/30' 
+              : 'bg-brand-900/50 text-brand-400 group-hover:bg-brand-600 group-hover:text-white ring-brand-700/50'}`}>
             {cat.icon}
           </div>
-          <span className="relative text-gray-300 font-bold text-lg group-hover:text-white transition-colors">
+          <span className={`relative font-bold text-lg transition-colors ${(cat as any).special ? 'text-white text-xl' : 'text-gray-300 group-hover:text-white'}`}>
             {cat.label}
           </span>
+          {(cat as any).special && (
+             <span className="absolute top-2 left-2 bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
+               New Feature
+             </span>
+          )}
         </button>
       ))}
     </div>
